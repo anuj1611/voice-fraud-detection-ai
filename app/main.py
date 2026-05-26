@@ -1,4 +1,7 @@
+from pathlib import Path
 from fastapi import FastAPI, Header, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from .audio_utils import preprocess_audio
 from .model_loader import predict
@@ -6,11 +9,21 @@ from .config import API_KEY
 
 app = FastAPI(title="AI Voice Detection API")
 
+BASE_DIR = Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
+
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
 
 class VoiceRequest(BaseModel):
     language: str
     audioFormat: str
     audioBase64: str
+
+
+@app.get("/")
+def ui_home():
+    return FileResponse(str(STATIC_DIR / "index.html"))
 
 
 @app.post("/api/voice-detection")

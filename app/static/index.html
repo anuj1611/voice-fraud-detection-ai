@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Detector Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="background-glow"></div>
+
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">AI vs Human Voice Analysis</p>
+      <h1>Voice Detector <span>Testing Console</span></h1>
+      <p class="subtitle">Upload an audio sample, call your FastAPI endpoint, and get instant classification with confidence charts.</p>
+    </section>
+
+    <section class="grid-layout">
+      <article class="panel form-panel">
+        <h2>Run Detection</h2>
+        <form id="detectorForm">
+          <label for="apiKey">API Key</label>
+          <input id="apiKey" name="apiKey" type="password" placeholder="Enter x-api-key" required />
+
+          <label for="language">Language</label>
+          <input id="language" name="language" type="text" value="Tamil" required />
+
+          <label for="audioFile">Audio File</label>
+          <div class="file-drop" id="fileDrop">
+            <input id="audioFile" name="audioFile" type="file" accept="audio/*,.mp3,.wav,.m4a" required />
+            <p>Drop audio here or click to choose</p>
+            <small id="fileName">No file selected</small>
+          </div>
+
+          <button id="submitBtn" type="submit">Analyze Voice</button>
+        </form>
+      </article>
+
+      <article class="panel result-panel">
+        <div class="result-header">
+          <h2>Detection Result</h2>
+          <span id="resultStatus" class="status status-idle">Idle</span>
+        </div>
+
+        <div id="resultBody" class="result-body hidden">
+          <p><strong>Classification:</strong> <span id="classificationText">-</span></p>
+          <p><strong>Confidence:</strong> <span id="confidenceText">-</span></p>
+          <p><strong>Language:</strong> <span id="languageText">-</span></p>
+          <p><strong>Explanation:</strong> <span id="explanationText">-</span></p>
+        </div>
+
+        <div id="errorBox" class="error-box hidden"></div>
+      </article>
+
+      <article class="panel chart-panel">
+        <h2>Confidence Split</h2>
+        <canvas id="confidenceChart" height="220"></canvas>
+      </article>
+
+      <article class="panel chart-panel">
+        <h2>Class Probability</h2>
+        <canvas id="classChart" height="220"></canvas>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

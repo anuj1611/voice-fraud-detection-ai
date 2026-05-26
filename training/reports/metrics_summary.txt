@@ -1,0 +1,13 @@
+Test Loss: 0.4251
+Test Accuracy: 0.8533
+ROC AUC: 0.9378
+
+Classification Report:
+              precision    recall  f1-score   support
+
+       Human     0.8841    0.8133    0.8472        75
+          AI     0.8272    0.8933    0.8590        75
+
+    accuracy                         0.8533       150
+   macro avg     0.8556    0.8533    0.8531       150
+weighted avg     0.8556    0.8533    0.8531       150
